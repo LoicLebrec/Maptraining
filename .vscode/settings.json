@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^/home/loiclebrec/Desktop/python/Maptraining/\\.venv/bin/python - <<'PY'\nfrom training_analyzer import TrainingAnalyzer\n\na = TrainingAnalyzer\\(\\)\ntraining = a\\.parse_gpx_training\\('sample_recovery_ride\\.gpx'\\)\nanalysis = a\\.analyze_training_session\\(training\\)\n\nprint\\('Recovery Ride Analysis'\\)\nprint\\(f\"Distance_km: \\{training\\['total_distance'\\]:\\.2f\\}\"\\)\nprint\\(f\"Duration_hr: \\{training\\['duration'\\]:\\.2f\\}\"\\)\nprint\\(f\"Elevation_gain_m: \\{training\\['total_elevation_gain'\\]:\\.2f\\}\"\\)\nprint\\(f\"Elevation_loss_m: \\{training\\['total_elevation_loss'\\]:\\.2f\\}\"\\)\nprint\\(f\"Avg_speed_kmh: \\{analysis\\['avg_speed_kmh'\\]\\}\"\\)\nprint\\(f\"Avg_pace_min_per_km: \\{analysis\\['avg_pace_min_per_km'\\]:\\.2f\\}\"\\)\nprint\\(f\"Intensity: \\{analysis\\['intensity'\\]\\}\"\\)\nprint\\(f\"Training_load: \\{analysis\\['training_load'\\]\\}\"\\)\nprint\\('Recommendations:'\\)\nfor rec in analysis\\['recommendations'\\]:\n    print\\(f\"- \\{rec\\}\"\\)\nPY$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

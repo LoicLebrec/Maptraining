@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Résultat de l'Analyse - Maptraining{% endblock %}
+
+{% block content %}
+<h2>📊 Analyse de l'Entraînement</h2>
+<p style="color: #666; margin-bottom: 30px;">
+    Voici le résumé détaillé de votre entraînement
+</p>
+
+<div class="card">
+    <h3>🎯 Métriques Principales</h3>
+    <div class="stats">
+        <div class="stat-box">
+            <div class="value">{{ analysis.distance_km }}</div>
+            <div class="label">Distance (km)</div>
+        </div>
+        <div class="stat-box">
+            <div class="value">{{ analysis.duration_hours }}</div>
+            <div class="label">Durée (heures)</div>
+        </div>
+        <div class="stat-box">
+            <div class="value">{{ analysis.avg_speed_kmh }}</div>
+            <div class="label">Vitesse Moy. (km/h)</div>
+        </div>
+        <div class="stat-box">
+            <div class="value">{{ analysis.avg_pace_min_per_km }}</div>
+            <div class="label">Allure (min/km)</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3>⛰️ Dénivelé et Intensité</h3>
+    <div class="stats">
+        <div class="stat-box">
+            <div class="value">{{ analysis.elevation_gain_m }}</div>
+            <div class="label">Dénivelé Positif (m)</div>
+        </div>
+        <div class="stat-box">
+            <div class="value">{{ analysis.intensity|capitalize }}</div>
+            <div class="label">Intensité</div>
+        </div>
+        <div class="stat-box">
+            <div class="value">{{ analysis.training_load }}</div>
+            <div class="label">Charge d'Entraînement</div>
+        </div>
+    </div>
+</div>
+
+{% if analysis.recommendations %}
+<div class="card" style="background: #d4edda;">
+    <h3>💡 Recommandations</h3>
+    <ul style="margin-left: 30px; line-height: 2;">
+        {% for recommendation in analysis.recommendations %}
+        <li>{{ recommendation }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% if map_html %}
+<div class="card">
+    <h3>🗺️ Visualisation du Parcours</h3>
+    <div style="margin-top: 15px;">
+        {{ map_html|safe }}
+    </div>
+</div>
+{% endif %}
+
+<div class="card">
+    <h3>📈 Interprétation de l'Intensité</h3>
+    <div style="margin-top: 15px;">
+        {% if analysis.intensity == 'easy' %}
+        <p><strong>Facile:</strong> Sortie de récupération ou endurance de base. Parfait pour la récupération active et
+            le développement de l'endurance fondamentale.</p>
+        {% elif analysis.intensity == 'moderate' %}
+        <p><strong>Modéré:</strong> Rythme d'entraînement standard. Bon équilibre entre développement de l'endurance et
+            stress physiologique.</p>
+        {% elif analysis.intensity == 'hard' %}
+        <p><strong>Difficile:</strong> Entraînement intense. Développe la puissance et l'endurance spécifique. Nécessite
+            une récupération adéquate.</p>
+        {% elif analysis.intensity == 'intense' %}
+        <p><strong>Intense:</strong> Effort maximal ou proche du maximum. Excellente séance pour améliorer la
+            performance, mais exige une récupération importante.</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card">
+    <h3>📊 Charge d'Entraînement (TSS-like)</h3>
+    <p>
+        Votre charge d'entraînement est de <strong>{{ analysis.training_load }}</strong> points.
+    </p>
+    <div style="margin-top: 10px;">
+        {% if analysis.training_load < 50 %} <p>🟢 Charge légère - Récupération rapide (moins de 24h)</p>
+            {% elif analysis.training_load < 100 %} <p>🟡 Charge modérée - Récupération 24-48h recommandée</p>
+                {% elif analysis.training_load < 200 %} <p>🟠 Charge importante - Récupération 48-72h nécessaire</p>
+                    {% else %}
+                    <p>🔴 Charge très importante - Récupération complète (3-7 jours)</p>
+                    {% endif %}
+    </div>
+</div>
+
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('analyze_training') }}" class="btn">Analyser un Autre Entraînement</a>
+    <a href="{{ url_for('generate_route') }}" class="btn btn-secondary" style="margin-left: 10px;">
+        Générer un Nouveau Parcours
+    </a>
+</div>
+{% endblock %}

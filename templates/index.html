@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - Maptraining{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin: 40px 0;">
+    <h2>Bienvenue sur Maptraining</h2>
+    <p style="font-size: 1.2em; color: #666; margin: 20px 0;">
+        Votre assistant personnel pour créer des parcours cyclistes optimisés<br>
+        et analyser vos entraînements
+    </p>
+</div>
+
+<div class="stats">
+    <div class="card">
+        <h3>🗺️ Génération de Parcours</h3>
+        <p>Créez des fichiers GPX personnalisés basés sur:</p>
+        <ul style="text-align: left; margin: 15px 0 15px 30px;">
+            <li>Votre point de départ</li>
+            <li>La distance souhaitée</li>
+            <li>Le niveau de difficulté</li>
+            <li>Vos préférences de terrain</li>
+        </ul>
+        <a href="{{ url_for('generate_route') }}" class="btn">Générer un parcours</a>
+    </div>
+
+    <div class="card">
+        <h3>📊 Analyse d'Entraînement</h3>
+        <p>Analysez vos entraînements avec:</p>
+        <ul style="text-align: left; margin: 15px 0 15px 30px;">
+            <li>Statistiques détaillées</li>
+            <li>Calcul de charge d'entraînement</li>
+            <li>Recommandations personnalisées</li>
+            <li>Visualisation du parcours</li>
+        </ul>
+        <a href="{{ url_for('analyze_training') }}" class="btn">Analyser un entraînement</a>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 30px;">
+    <h3>✨ Fonctionnalités</h3>
+    <div class="stats">
+        <div class="stat-box">
+            <div class="value">🎯</div>
+            <div class="label">Parcours Optimisés</div>
+        </div>
+        <div class="stat-box">
+            <div class="value">📈</div>
+            <div class="label">Analyse Immédiate</div>
+        </div>
+        <div class="stat-box">
+            <div class="value">💾</div>
+            <div class="label">Export GPX</div>
+        </div>
+        <div class="stat-box">
+            <div class="value">🗺️</div>
+            <div class="label">Visualisation</div>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 30px;">
+    <h3>🚀 Comment utiliser Maptraining?</h3>
+    <ol style="margin-left: 30px; line-height: 2;">
+        <li><strong>Générer un parcours:</strong> Indiquez votre point de départ, la distance et le niveau souhaités
+        </li>
+        <li><strong>Télécharger le GPX:</strong> Récupérez le fichier pour l'utiliser avec votre GPS ou application
+            favorite</li>
+        <li><strong>Réaliser l'entraînement:</strong> Suivez le parcours généré lors de votre sortie</li>
+        <li><strong>Analyser vos données:</strong> Uploadez votre fichier GPX pour obtenir une analyse détaillée</li>
+    </ol>
+</div>
+
+<div class="card" style="margin-top: 30px; background: #e7f3ff;">
+    <h3>ℹ️ À propos</h3>
+    <p>
+        Maptraining est un outil open source qui permet aux cyclistes de créer des parcours
+        d'entraînement optimisés et d'analyser leurs performances. L'application génère des
+        fichiers GPX personnalisés en fonction de vos besoins et fournit des analyses détaillées
+        de vos entraînements pour un retour immédiat sur vos performances.
+    </p>
+</div>
+{% endblock %}
