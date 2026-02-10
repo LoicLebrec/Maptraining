@@ -1,0 +1,6 @@
+flask==3.0.0
+gpxpy==1.6.2
+geopy==2.4.1
+numpy==1.26.3
+requests==2.31.0
+folium==0.15.1
