@@ -11,7 +11,7 @@ import folium
 import json
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'maptraining-secret-key-2024'
+app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'maptraining-dev-key-change-in-production')
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
@@ -252,4 +252,7 @@ def api_analyze():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Only enable debug mode if explicitly set in environment
+    # Never use debug=True in production as it poses security risks
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)

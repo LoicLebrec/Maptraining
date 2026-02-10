@@ -115,6 +115,11 @@ class RouteGenerator:
         gpx_segment = gpxpy.gpx.GPXTrackSegment()
         gpx_track.segments.append(gpx_segment)
         
+        # Elevation simulation constants
+        BASE_ELEVATION = 100  # Base elevation in meters
+        MIN_ELEVATION_VARIATION = -50  # Minimum variation from base
+        MAX_ELEVATION_VARIATION = 150  # Maximum variation from base
+        
         # Add points to segment
         base_time = datetime.now()
         for i, (lat, lon) in enumerate(route_points):
@@ -124,7 +129,7 @@ class RouteGenerator:
                 latitude=lat,
                 longitude=lon,
                 time=base_time + time_offset,
-                elevation=100 + random.uniform(-50, 150)  # Simulated elevation
+                elevation=BASE_ELEVATION + random.uniform(MIN_ELEVATION_VARIATION, MAX_ELEVATION_VARIATION)
             )
             gpx_segment.points.append(point)
         

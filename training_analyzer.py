@@ -120,15 +120,18 @@ class TrainingAnalyzer:
         avg_speed = distance / duration if duration > 0 else 0
         avg_pace = duration / distance * 60 if distance > 0 else 0  # min/km
         
-        # Estimate intensity based on speed and elevation
-        elevation_factor = 1 + (elevation_gain / distance / 100) if distance > 0 else 1
+        # Classify training intensity based on speed
+        # Adjust speed threshold based on elevation (climbs make rides harder)
+        # Elevation factor: for every 10m of climbing per km, increase perceived speed by 1%
+        ELEVATION_DIFFICULTY_FACTOR = 100  # Scaling factor for elevation impact
+        elevation_factor = 1 + (elevation_gain / distance / ELEVATION_DIFFICULTY_FACTOR) if distance > 0 else 1
+        adjusted_speed = avg_speed * elevation_factor
         
-        # Classify training intensity
-        if avg_speed < 15:
+        if adjusted_speed < 15:
             intensity = 'easy'
-        elif avg_speed < 20:
+        elif adjusted_speed < 20:
             intensity = 'moderate'
-        elif avg_speed < 25:
+        elif adjusted_speed < 25:
             intensity = 'hard'
         else:
             intensity = 'intense'
