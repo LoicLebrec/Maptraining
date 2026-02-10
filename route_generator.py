@@ -151,9 +151,23 @@ class RouteGenerator:
         """
         # Geocode start location if string
         if isinstance(start_location, str):
-            coords = self.geocode_location(start_location)
-            if not coords:
-                raise ValueError(f"Could not geocode location: {start_location}")
+            # Check if it's coordinate string like "48.8566, 2.3522"
+            if ',' in start_location:
+                try:
+                    parts = [float(x.strip()) for x in start_location.split(',')]
+                    if len(parts) == 2:
+                        coords = tuple(parts)
+                    else:
+                        raise ValueError("Invalid coordinate format")
+                except ValueError:
+                    # Not coordinates, try geocoding
+                    coords = self.geocode_location(start_location)
+                    if not coords:
+                        raise ValueError(f"Could not geocode location: {start_location}")
+            else:
+                coords = self.geocode_location(start_location)
+                if not coords:
+                    raise ValueError(f"Could not geocode location: {start_location}")
         else:
             coords = start_location
         
