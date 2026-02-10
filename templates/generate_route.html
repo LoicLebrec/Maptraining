@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Générer un Parcours - Maptraining{% endblock %}
+
+{% block content %}
+<h2>Générer un Parcours d'Entraînement</h2>
+<p style="color: #666; margin-bottom: 30px;">
+    Créez un parcours cycliste personnalisé et optimisé en fonction de vos besoins
+</p>
+
+<form method="POST" action="{{ url_for('generate_route') }}">
+    <div class="card">
+        <h3>Informations de l'athlète</h3>
+        
+        <div class="form-group">
+            <label for="athlete_name">Nom de l'athlète:</label>
+            <input type="text" id="athlete_name" name="athlete_name" 
+                   placeholder="Ex: Jean Dupont" required>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h3>Paramètres du parcours</h3>
+        
+        <div class="form-group">
+            <label for="start_location">Point de départ:</label>
+            <input type="text" id="start_location" name="start_location" 
+                   placeholder="Ex: Paris, France ou 48.8566, 2.3522" required>
+            <small style="color: #666;">Entrez une ville, une adresse ou des coordonnées GPS</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="distance">Distance souhaitée (km):</label>
+            <input type="number" id="distance" name="distance" 
+                   min="1" max="200" value="20" step="0.5" required>
+            <small style="color: #666;">Entre 1 et 200 km</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="difficulty">Niveau de difficulté:</label>
+            <select id="difficulty" name="difficulty" required>
+                <option value="easy">Facile - Terrain plat, idéal pour récupération</option>
+                <option value="medium" selected>Moyen - Quelques dénivelés, entraînement standard</option>
+                <option value="hard">Difficile - Terrain vallonné, entraînement intense</option>
+            </select>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px;">
+        <button type="submit">🚴 Générer le Parcours</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary" style="margin-left: 10px;">Annuler</a>
+    </div>
+</form>
+
+<div class="card" style="margin-top: 30px; background: #fff3cd;">
+    <h3>💡 Conseils</h3>
+    <ul style="margin-left: 30px; line-height: 2;">
+        <li>Le parcours généré sera circulaire, revenant au point de départ</li>
+        <li>La distance peut légèrement varier en fonction de l'optimisation du tracé</li>
+        <li>Les parcours sont créés en privilégiant les routes populaires auprès des cyclistes</li>
+        <li>Le fichier GPX généré est compatible avec tous les GPS et applications de cyclisme</li>
+    </ul>
+</div>
+{% endblock %}

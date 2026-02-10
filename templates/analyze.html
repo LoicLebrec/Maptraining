@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Analyser un Entraînement - Maptraining{% endblock %}
+
+{% block content %}
+<h2>Analyser un Entraînement</h2>
+<p style="color: #666; margin-bottom: 30px;">
+    Téléchargez votre fichier GPX pour obtenir une analyse détaillée de votre entraînement
+</p>
+
+<form method="POST" action="{{ url_for('analyze_training') }}" enctype="multipart/form-data">
+    <div class="card">
+        <h3>📁 Fichier GPX</h3>
+        
+        <div class="form-group">
+            <label for="gpx_file">Sélectionnez votre fichier d'entraînement:</label>
+            <input type="file" id="gpx_file" name="gpx_file" accept=".gpx" required>
+            <small style="color: #666;">Format accepté: .gpx (max 16MB)</small>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px;">
+        <button type="submit">📊 Analyser l'Entraînement</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary" style="margin-left: 10px;">Annuler</a>
+    </div>
+</form>
+
+<div class="card" style="margin-top: 30px;">
+    <h3>📈 Analyses Fournies</h3>
+    <div class="stats">
+        <div class="card">
+            <h4>Métriques de Base</h4>
+            <ul style="text-align: left; margin-left: 20px;">
+                <li>Distance totale</li>
+                <li>Durée de l'entraînement</li>
+                <li>Vitesse moyenne</li>
+                <li>Allure moyenne (min/km)</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h4>Analyse Avancée</h4>
+            <ul style="text-align: left; margin-left: 20px;">
+                <li>Dénivelé positif et négatif</li>
+                <li>Intensité de l'effort</li>
+                <li>Charge d'entraînement (TSS)</li>
+                <li>Classification de la séance</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h4>Recommandations</h4>
+            <ul style="text-align: left; margin-left: 20px;">
+                <li>Conseils personnalisés</li>
+                <li>Suggestions d'amélioration</li>
+                <li>Récupération nécessaire</li>
+                <li>Progression détectée</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="background: #fff3cd;">
+    <h3>💡 Sources de Fichiers GPX</h3>
+    <p>Vous pouvez obtenir des fichiers GPX depuis:</p>
+    <ul style="margin-left: 30px; line-height: 2;">
+        <li><strong>GPS/Compteurs:</strong> Garmin, Wahoo, Polar, etc.</li>
+        <li><strong>Applications:</strong> Strava, Komoot, TrainingPeaks, etc.</li>
+        <li><strong>Maptraining:</strong> Parcours générés sur cette plateforme</li>
+    </ul>
+</div>
+{% endblock %}
